@@ -1,0 +1,25 @@
+.card{
+    position: relative;
+}
+
+.cardImage,
+.cardImage img{
+    width: 100%;
+}
+
+.cardTitle{
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.outStock{
+    background-color: black;
+    color: #fff;
+    font-size: 12px;
+    line-height: 1em;
+    padding: 3px 4px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 2;
+}

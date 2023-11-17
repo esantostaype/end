@@ -1,0 +1,42 @@
+.content{
+    align-items: center;
+    display: flex;
+}
+
+.icon{
+    background-color: #eee;
+    align-items: center;
+    border-radius: 16px;
+    cursor: pointer;
+    display: flex;
+    height: 32px;
+    justify-content: center;
+    width: 32px;
+}
+
+.number{
+    width: 40px;
+    text-align: center;
+}
+
+.list{
+    align-items: center;
+    display: flex;
+    gap: 10px;
+}
+
+.size{
+    border: 1px solid var(--lightgray2);
+    padding: 10px 16px;
+}
+
+.size:hover{
+    background-color: var(--lightgray);
+    border: 1px solid var(--lightgray2);
+}
+
+.selected .size{
+    background-color: var(--primary);
+    border: 1px solid var(--primary);
+    color: #fff;
+}

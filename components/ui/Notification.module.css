@@ -1,0 +1,51 @@
+.wrapper{
+    display: block;
+    margin-bottom: 20px;
+}
+
+.content{
+    border-radius: 4px;
+    display: flex;
+    gap: 10px;
+    padding: 16px;
+}
+
+.icon{
+    flex: 0 0 22px;
+}
+
+.error .content{
+    background-color: var(--error-light);
+    color: var(--error);
+}
+
+.error svg{
+    fill: var(--error);
+}
+
+.warning .content{
+    background-color: var(--warning-light);
+    color: var(--warning);
+}
+
+.warning svg{
+    fill: var(--warning);
+}
+
+.success .content{
+    background-color: var(--success-light);
+    color: var(--success);
+}
+
+.success svg{
+    fill: var(--success);
+}
+
+.info .content{
+    background-color: var(--info-light);
+    color: var(--info);
+}
+
+.info svg{
+    fill: var(--info);
+}

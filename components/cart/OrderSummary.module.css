@@ -1,0 +1,14 @@
+.row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.col{
+    padding: 6px 0;
+}
+
+.total{
+    font-size: 1.125em;
+    font-weight: bold;
+    margin: 10px 0 20px;
+}

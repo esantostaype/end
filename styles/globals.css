@@ -1,0 +1,768 @@
+:root {
+    color: var(--primary);
+    --primary: #000;
+    --secondary: #333;
+    --lightgray: #f4f6f8;
+    --lightgray2: #e0e5e9;
+    --error: #ef5350;
+    --warning: #ff9800;
+    --info: #03a9f4;
+    --success: #4caf50;
+    --error-light: #fdeeee;
+    --warning-light: #fff5e6;
+    --info-light: #e6f7fe;
+    --success-light: #edf7ee;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../public/assets/fonts/Roboto-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../public/assets/fonts/Roboto-BlackItalic.woff2') format('woff2');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../public/assets/fonts/Roboto-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../public/assets/fonts/Roboto-BoldItalic.woff2') format('woff2');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../public/assets/fonts/Roboto-Italic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../public/assets/fonts/Roboto-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../public/assets/fonts/Roboto-LightItalic.woff2') format('woff2');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../public/assets/fonts/Roboto-Medium.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../public/assets/fonts/Roboto-MediumItalic.woff2') format('woff2');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../public/assets/fonts/Roboto-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fengardo';
+    src: url('../public/assets/fonts/FengardoNeue-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+*:focus {
+    outline: none;
+}
+
+a,
+li,
+span,
+article,
+header,
+footer,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+svg {
+    outline: none;
+    /* transition: 300ms cubic-bezier(0.59, 0.12, 0.34, 0.95); */
+}
+
+span {
+    font-size: 1em;
+    font-family: inherit;
+}
+
+figure {
+    margin: 0;
+}
+
+img {
+    margin-bottom: -7px;
+}
+
+strong,
+b {
+    font-weight: bold;
+}
+
+body {
+    font-family: 'Roboto';
+    font-size: 14px;
+    letter-spacing: 0.015em;
+    line-height: 1.4em;
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+
+body:has(.SideMenu_isOpen__4cpyM),
+body:has(.SideCart_isOpen__2H2lb) {
+    overflow-y: hidden;
+    width: 100vw;
+}
+
+h1{
+    font-family: 'Fengardo';
+    letter-spacing: 0.025em;
+    line-height: 1em;
+    margin: 0 0 1em;
+    text-transform: uppercase;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: inherit;
+    font-weight: inherit;
+    text-decoration: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+}
+
+span {
+    font-weight: inherit;
+}
+
+input,
+textarea,
+select {
+    background: transparent;
+    border: 1px solid var(--lightgray2);
+    border-radius: 4px;
+    color: inherit;
+    display: block;
+    font-size: inherit;
+    letter-spacing: 0.02em;
+    padding: 12px 14px;
+    transition: all 0.3s ease;
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+    border: 1px solid var(--primary);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-text-fill-color: inherit;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+}
+
+button{
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: inherit;
+    padding: 0;
+}
+
+.main-button{
+    background-color: var(--primary);
+    border-radius: 4px;
+    color: #fff;
+    display: block;
+    font-weight: bold;
+    padding: 1.125em 2em;
+    text-align: center;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.main-button:hover{
+    background-color: var(--secondary);
+}
+
+.link{
+    color: var(--primary);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.link:hover{
+    color: var(--secondary);
+    text-decoration: none;
+}
+
+.error{
+    color: var(--error);
+}
+
+.warning{
+    color: var(--warning);
+}
+
+.success{
+    color: var(--success);
+}
+
+.info{
+    color: var(--info);
+}
+
+.message{
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.4em;
+    margin-top: 12px;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+p {
+    margin: 0;
+}
+
+::-webkit-input-placeholder {
+    color: inherit;
+}
+
+::-moz-placeholder {
+    color: inherit;
+}
+
+:-ms-input-placeholder {
+    color: inherit;
+}
+
+:-moz-placeholder {
+    color: inherit;
+}
+
+
+
+
+
+.large .home__content,
+.large .main__content{
+    margin: 0 auto;
+    max-width: 1440px;
+}
+
+.medium .home__content,
+.medium .main__content{
+    margin: 0 auto;
+    max-width: 1020px;
+}
+
+.small .home__content,
+.small .main__content{
+    margin: 0 auto;
+    max-width: 768px;
+}
+
+.main__content{
+    padding: 120px 0 60px;
+}
+
+.block-section{
+    margin: 80px 0;
+}
+
+.block-section__title{
+    font-size: 1.5em;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.3em;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.hero{
+    background-color: black;
+    color: #fff;
+    height: 100vh;
+}
+
+.splide,
+.splide__track,
+.splide__list,
+.splide__slide,
+.splide img{
+    height: 100%;
+}
+
+.splide__slide{
+    position: relative;
+}
+
+.splide .splide__arrow{
+    background: rgba(0, 0, 0, 0.2);
+    height: 40px;
+    opacity: 1;
+    transition: 300ms cubic-bezier(0.59, 0.12, 0.34, 0.95);
+    width: 40px;
+}
+
+.splide .splide__arrow:hover{
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.splide .splide__arrow svg{
+    fill: #fff;
+}
+
+.hero .splide img{
+    position: relative;
+    z-index: 1;
+}
+
+.hero .splide__slide::after{
+    background: linear-gradient(rgba(26, 26, 26, 0) 0%, rgba(26, 26, 26, 0.6) 100%);
+    bottom: 0;
+    content: '';
+    height: calc(50% - 20px);
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+}
+
+.hero .splide__arrow--prev{
+    left: 40px;
+}
+
+.hero .splide__arrow--next{
+    right: 40px;
+}
+
+.hero img{
+    object-fit: cover;
+}
+
+.hero__caption{
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 3;
+}
+
+.hero__caption__content{
+    margin: 0 auto;
+    max-width: 1440px;
+    padding-bottom: 120px;
+}
+
+.hero__title{
+    font-family: 'Fengardo';
+    font-size: 3em;
+    font-weight: bold;
+    line-height: 1em;
+    margin-bottom: 10px;
+    max-width: 30%;
+    text-transform: uppercase;
+}
+
+.hero .splide__pagination{
+    bottom: 60px;
+    gap: 6px;
+    justify-content: flex-start;
+    left: 50%;
+    max-width: 1440px;
+    padding: 0;
+    width: 100%;
+    transform: translateX(-50%);
+}
+
+.hero .splide__pagination__page{
+    background: transparent;
+    border-radius: 0;
+    cursor: pointer;
+    height: 20px;
+    margin: 0;
+    opacity: 1;
+    position: relative;
+    width: 48px;
+}
+
+.hero .splide__pagination__page:after{
+    background: rgba(255, 255, 255, 0.2);
+    content: '';
+    height: 2px;
+    left: 0;
+    position: absolute;
+    top: 9px;
+    width: 100%;
+    z-index: 1;
+}
+
+.hero .splide__pagination__page.is-active:before{    
+	animation: 5s ease progress;
+    background: #fff;
+    content: '';
+    height: 2px;
+    left: 0;
+    position: absolute;
+    top: 9px;
+    width: 100%;
+    z-index: 2;
+}
+
+.hero .splide__pagination__page.is-active {
+    background: transparent;
+    transform: scale(1);
+}
+
+@keyframes progress {
+	0% {
+		width: 0;
+	}
+
+	100% {
+		width: 100%;
+	}
+}
+
+.categories__list{
+    display: flex;
+}
+
+.category__item{
+    flex: 1;
+}
+
+
+.product__content{
+    display: flex;
+    gap: 40px;
+}
+
+.product__title{
+    margin-bottom: 0.5em;
+}
+
+.product__image,
+.product__caption{
+    flex: 1;
+}
+
+.product__subtitle{
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+.product__price{
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+.product__quantity, .product__addCart, .product__description{
+    margin: 2em 0;
+}
+
+.product__outStock{
+    background-color: black;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.product__addCart .main-button{
+    max-width: 240px;
+}
+
+
+
+
+.cart-page,
+.checkout-page{
+    display: flex;
+    gap: 60px;
+}
+
+.cart-page__products-list,
+.checkout-page__info{
+    flex: 4;
+}
+
+.cart-page__summary,
+.checkout-page__summary{
+    flex: 2;
+}
+
+.cart-page__title,
+.checkout-page__title{
+    font-size: 1.25em;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.cart-page__empty{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: calc( 100vh - 180px );
+    text-align: center;
+}
+
+.cart-page__empty__content{
+    margin-top: -80px;
+}
+
+.cart-page__empty__title{
+    font-size: 1.25em;
+    line-height: 1.3em;
+    margin: 20px 0;
+}
+
+.checkout-page__cart-list{
+    margin-top: 40px;
+}
+
+.checkout-page__info__section{
+    margin-bottom: 40px;
+}
+
+.checkout-page__info__section:last-child{
+    margin-bottom: 0;
+}
+
+.checkout-page__info__header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkout-page__info__title{
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+
+
+
+.auth{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.auth__image{
+    flex: 0 0 50%;
+    height: 100vh;
+}
+
+.auth__image img{
+    height: 100vh;
+    object-fit: cover;
+}
+
+.auth__content{
+    flex: 0 0 50%;
+    padding: 80px;
+}
+
+.form{
+}
+
+.auth .form{
+    max-width: 360px;
+    flex-direction: column;
+    display: flex;
+    gap: 20px;
+}
+
+.form input,
+.form select,
+.form textarea{
+    width: 100%;
+}
+
+.form__content{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.form__field{
+    flex: 1;
+}
+
+.form__field.ff-1{
+    flex: 0 0 calc( 8.33% - 10px );
+}
+
+.form__field.ff-2{
+    flex: 0 0 calc( 16.66% - 10px );
+}
+
+.form__field.ff-3{
+    flex: 0 0 calc( 25% - 10px );
+}
+
+.form__field.ff-4{
+    flex: 0 0 calc( 33.33% - 14px );
+}
+
+.form__field.ff-5{
+    flex: 0 0 calc( 41.66% - 10px );
+}
+
+.form__field.ff-6{
+    flex: 0 0 calc( 50% - 10px );
+}
+
+.form__field.ff-12{
+    flex: 0 0 100%;
+}
+
+.checkbox{
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    font-weight: bold;
+    position: relative;
+}
+
+.checkbox input{
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+}
+
+.checkbox label{
+    cursor: pointer;
+}
+
+.checkbox label::before{
+    content:'';
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid var(--primary);
+    border-radius: 3px;
+    padding: 9px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.checkbox input:checked + label::before {
+    background-color: var(--primary);
+}
+
+.checkbox input:checked + label::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 8px;
+    width: 4px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+
+
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+.fadeIn {
+	animation-duration: 0.5s;
+	animation-fill-mode: both;
+	animation-name: fadeIn;
+}

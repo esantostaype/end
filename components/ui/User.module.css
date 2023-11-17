@@ -1,0 +1,51 @@
+.content{
+    align-items: center;
+    display: flex;
+    position: relative;
+}
+
+.popover{
+    background-color: #fff;
+    border-radius: 12px;
+    border: 1px solid var(--lightgray2);
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 20px;
+    min-width: 180px;
+    position: absolute;
+    opacity: 0;
+    right: 0;
+    top: 38px;
+    transform: scale(0.7);
+    transform-origin: right top;
+    transition-timing-function: cubic-bezier(0.1, 1, 1, 1);
+    transition-duration: 0.2s;
+    visibility: hidden;
+}
+
+.popover.isOpen{
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+}
+
+.popoverSection{
+    border-top: 1px solid var(--lightgray2);
+    padding: 16px 20px;
+}
+
+.popoverSection:first-child{
+    border-top: none;
+}
+
+.popoverTitle{
+    font-size: 1.125em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.popoverItem a,
+.popoverItem button{
+    align-items: center;
+    display: flex;
+    gap: 6px;
+    padding: 4px 0;
+}

@@ -1,0 +1,19 @@
+.button{
+    position: relative;
+}
+
+.counter{
+    align-items: center;
+    background-color: #000;
+    border-radius: 8px;
+    bottom: 0;
+    color: #fff;
+    display: flex;
+    font-size: 10px;
+    font-weight: bold;
+    height: 16px;
+    justify-content: center;
+    position: absolute;
+    right: -6px;
+    width: 16px;
+}

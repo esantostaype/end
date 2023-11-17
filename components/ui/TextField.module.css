@@ -1,0 +1,56 @@
+.control{
+    position: relative;
+}
+
+.label{
+    color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    left: 9px;
+    line-height: 1em;
+    padding: 0 6px;
+    position: absolute;
+    top: 15px;
+    transition: all 0.3s ease;
+}
+
+.isActive .label,
+.isFilled .label{
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.75);
+    font-size: 12px;
+    top: -5px;
+}
+
+.field::placeholder{
+    color: rgba(0, 0, 0, 0);
+    transition: all 0.3s ease;
+}
+
+.field:focus-visible{
+    outline: var(--primary) auto 1px;
+    transition: all 0s ease;
+}
+
+.isActive .field::placeholder{
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.isError .field{
+    border: 1px solid var(--error);
+}
+
+.isError .label{
+    color: var(--error);
+}
+
+.isError .field:focus-visible{
+    outline: var(--error) auto 1px;
+    transition: all 0s ease;
+}
+
+.errors{
+    color: var(--error);
+    display: block;
+    font-size: 12px;
+    margin-top: 4px;
+}

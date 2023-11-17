@@ -1,0 +1,71 @@
+.header{
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.75);
+    align-items: center;
+    display: flex;
+    left: 0;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+[data-theme="dark"] .header{
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+[data-theme="dark"] .logo svg{
+    fill: #fff;
+}
+
+.logo,
+.headerRight{
+    flex: 1;
+}
+
+.nav{
+    flex: 2;
+}
+
+.navList{
+    align-items: center;
+    display: flex;
+    font-size: 12px;
+    font-weight: 700;
+    gap: 20px;
+    justify-content: center;
+    text-transform: uppercase;
+}
+
+.navItem a{
+    display: block;
+    line-height: 1em;
+    padding: 24px 10px;
+    position: relative;
+}
+
+.navItem a::before{
+    background-color: black;
+    bottom: 0;
+    content: '';
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    transition: 300ms cubic-bezier(0.59, 0.12, 0.34, 0.95);
+    width: 0;
+}
+
+.navItem a:hover::before,
+.navItem.active a::before{
+    width: calc( 100% - 10px );
+}
+
+.headerRight{
+    align-items: center;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+}

@@ -10,7 +10,7 @@ export const CartPage = () => {
     const { cart } = useContext( CartContext );
     
     return (
-        <ShopLayout title={ 'Cart | END.'} pageDescription={ 'Encuentra los mejores productos aquí'} size="medium">
+        <ShopLayout title={ 'Cart | END.'} pageDescription={ 'Encuentra los mejores productos aquí'} size="large">
             { cart.length > 0 ? (
                 <>
                 <h1>Cart</h1>
@@ -19,9 +19,9 @@ export const CartPage = () => {
                         <CartList editable={ true }/>
                     </div>
                     <div className='cart-page__summary'>
-                        <h3 className='cart-page__title'>Order</h3>
+                        <h3 className='cart-page__title'>Cart totals</h3>
                         <OrderSummary/>
-                        <NextLink href="/checkout" className='main-button'>Checkout</NextLink>
+                        <NextLink href="/checkout" className='main-button'>Procced to Checkout</NextLink>
                     </div>
                 </div>
                 </>

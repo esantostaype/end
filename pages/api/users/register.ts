@@ -14,6 +14,7 @@ type Data =
             firstName: string;
             lastName: string;
             birthDay: string;
+            phone: string;
             email: string;
             password: string;
             role: string;
@@ -42,6 +43,7 @@ const registerUser = async( req: NextApiRequest, res: NextApiResponse<Data>) => 
         firstName = '',
         lastName = '',
         birthDay = '',
+        phone = '',
         email = '',
         password = '',
         billingAddress = {},
@@ -50,7 +52,8 @@ const registerUser = async( req: NextApiRequest, res: NextApiResponse<Data>) => 
         name: string,
         firstName: string,
         lastName: string,
-        birthDay: string,
+        birthDay?: string,
+        phone: string,
         email: string,
         password: string,
         billingAddress?: IBillingAddress;
@@ -71,6 +74,7 @@ const registerUser = async( req: NextApiRequest, res: NextApiResponse<Data>) => 
         firstName,
         lastName,
         birthDay,
+        phone,
         email: email.toLocaleLowerCase(),
         password: bcrypt.hashSync( password ),
         role: 'client',
@@ -98,6 +102,7 @@ const registerUser = async( req: NextApiRequest, res: NextApiResponse<Data>) => 
             firstName,
             lastName,
             birthDay,
+            phone,
             email,
             password,
             role,

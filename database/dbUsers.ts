@@ -1,7 +1,26 @@
+import { isValidObjectId } from 'mongoose';
 import bcrypt from 'bcryptjs'
 import { db } from '.'
 import { User } from '../models';
+import { IUser } from '../interfaces';
 
+export const getUserById = async( id: string ):Promise<IUser| null> => {
+
+    if ( !isValidObjectId(id) ){
+        return null;
+    }
+
+    await db.connect();
+    const user = await User.findById( id ).lean();
+    await db.disconnect();
+
+    if ( !user ) {
+        return null;
+    }
+
+    return JSON.parse(JSON.stringify(user));
+
+}
 export const checkUserEmailPassword = async( email: string, password: string ) => {
     
     await db.connect();

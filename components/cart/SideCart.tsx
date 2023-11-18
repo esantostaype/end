@@ -45,6 +45,7 @@ export const SideCart = () => {
                         </div>
                         <div className={ styles.summary }>
                             <OrderSummary />
+                            <button onClick={ () => navigateTo('/cart') } className={`${ styles.viewCart } ghost-button`}>View Cart</button>
                             <button onClick={ () => navigateTo('/checkout') } className='main-button'>Checkout</button>
                         </div>
                     </>

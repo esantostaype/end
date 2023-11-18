@@ -1,7 +1,7 @@
 :root {
     color: var(--primary);
     --primary: #000;
-    --secondary: #333;
+    --secondary: #666;
     --lightgray: #f4f6f8;
     --lightgray2: #e0e5e9;
     --error: #ef5350;
@@ -165,6 +165,7 @@ body:has(.SideCart_isOpen__2H2lb) {
 
 h1{
     font-family: 'Fengardo';
+    font-size: 2em;
     letter-spacing: 0.025em;
     line-height: 1em;
     margin: 0 0 1em;
@@ -255,6 +256,22 @@ button{
 
 .main-button:hover{
     background-color: var(--secondary);
+}
+
+.ghost-button{
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    display: block;
+    font-weight: bold;
+    padding: 1.125em 2em;
+    text-align: center;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.ghost-button:hover{
+    border: 2px solid var(--secondary);
+    color: var(--secondary);
 }
 
 .link{
@@ -570,9 +587,9 @@ p {
 
 .cart-page__title,
 .checkout-page__title{
-    font-size: 1.25em;
+    font-size: 1.5em;
     font-weight: bold;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .cart-page__empty{
@@ -588,7 +605,7 @@ p {
 }
 
 .cart-page__empty__title{
-    font-size: 1.25em;
+    font-size: 1.5em;
     line-height: 1.3em;
     margin: 20px 0;
 }
@@ -608,12 +625,6 @@ p {
 .checkout-page__info__header{
     display: flex;
     justify-content: space-between;
-}
-
-.checkout-page__info__title{
-    font-size: 1.5em;
-    font-weight: 600;
-    margin-bottom: 20px;
 }
 
 

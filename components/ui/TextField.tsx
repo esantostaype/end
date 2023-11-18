@@ -16,6 +16,7 @@ interface Props {
     options?: CountryOption[];
     errors: string | undefined;
     touched: boolean | undefined;
+    value?: string;
 }
 
 export const TextField:FC<Props> = ({
@@ -27,6 +28,7 @@ export const TextField:FC<Props> = ({
     options,
     errors,
     touched,
+    value
 }) => {
 
     const [ isActive, setIsActive ] = useState( false );
@@ -50,6 +52,7 @@ export const TextField:FC<Props> = ({
                 `${ styles.control }
                 ${ isActive ? styles.isActive : '' }
                 ${ isFilled ? styles.isFilled : '' }
+                ${ value ? styles.isFilled : '' }
                 ${ errors && touched ? ( styles.isError ) : ( styles.isValid ) }`
             }
             onFocus={ handleFieldFocus }
@@ -66,7 +69,13 @@ export const TextField:FC<Props> = ({
                     ))}
                 </Field>
             ) : (
-                <Field type={ type } name={ name } placeholder={ placeholder } className={ styles.field } autoComplete="off" />
+                <Field
+                    type={ type }
+                    name={ name }
+                    placeholder={ placeholder }
+                    className={ styles.field }
+                    autoComplete="off"
+                />
             )}
             <ErrorMessage
                 name={ name }

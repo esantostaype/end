@@ -36,14 +36,13 @@ export const CartList: FC<Props> = ({ editable = false }) => {
                                     src={ `/products/${ product.image }` }
                                     alt={ product.title }
                                     loading = 'lazy'
-                                    width={ 128 }
-                                    height={ 128 }
+                                    width={ 72 }
+                                    height={ 72 }
                                 />
                             </NextLink>
                         </figure>
                         <div className={ styles.caption }>
-                            <h2 className={ styles.title }>{ product.title }</h2>
-                            <div className={ styles.size }>{ product.size }</div>
+                            <h2 className={ styles.title }>{ product.title } | Size: { product.size }</h2>
                             {
                                 editable &&
                                 <button onClick={ () => removeCartProduct( product ) } className={ styles.remove }>
@@ -55,9 +54,9 @@ export const CartList: FC<Props> = ({ editable = false }) => {
                                     editable 
                                     ?(
                                     <ItemCounterCart
-                                            currentValue={ product.quantity }
-                                            maxValue={ 10 }
-                                            onUpdatedQuantity={( value ) => onNewCartQuantityValue( product, value )}
+                                        currentValue={ product.quantity }
+                                        maxValue={ 10 }
+                                        onUpdatedQuantity={( value ) => onNewCartQuantityValue( product, value )}
                                     />):
                                     <div></div>
                                 }

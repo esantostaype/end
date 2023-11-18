@@ -9,16 +9,16 @@ export const OrderSummary = () => {
 
     return (
         <div className={ styles.content }>
-            <div className={ styles.row }>
+            {/* <div className={ styles.row }>
                 <div className={ styles.col }>N° Products</div>
                 <div className={ styles.col }>{ numberOfItems } { numberOfItems > 1 ? 'products' : 'product' }</div>
-            </div>
+            </div> */}
             <div className={ styles.row }>
-                <div className={ styles.col }>Subtotal</div>
+                <div className={ styles.col }><strong>Subtotal</strong></div>
                 <div className={ styles.col }>{ currency.format( subTotal ) }</div>
             </div>
             <div className={ styles.row }>
-                <div className={ styles.col }>Taxes ({ Number( process.env.NEXT_PUBLIC_TAX_RATE ) * 100}%)</div>
+                <div className={ styles.col }><strong>Taxes ({ Number( process.env.NEXT_PUBLIC_TAX_RATE ) * 100}%)</strong></div>
                 <div className={ styles.col }>{ currency.format( tax ) }</div>
             </div>
             <div className={ `${ styles.row } ${ styles.total }` }>

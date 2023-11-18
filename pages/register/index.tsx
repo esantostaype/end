@@ -2,7 +2,7 @@ import { FC, useContext, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
-import { getSession } from 'next-auth/react';
+import { getSession, signIn } from 'next-auth/react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { AuthLayout } from '../../layouts';
@@ -93,14 +93,14 @@ const RegisterPage = () => {
 						}
 						setSubmitting( false );
 
-						//await signIn( 'credentials', { email, password } );
+						await signIn( 'credentials', { email, password, redirect: false } );
 
 						const destination = router.query.p?.toString() || '/';
 						router.replace( destination );
 					}
 				}
 			>
-				{({ errors, touched }) => (
+				{({ errors, touched, values }) => (
 					<Form className="form">
 						{
 							showError &&
@@ -116,6 +116,7 @@ const RegisterPage = () => {
 							placeholder="Enter your Username"
 							errors={ errors.name }
 							touched={ touched.name }
+							value={ values.name }
 						/>
 						<TextField
 							label="First Name"
@@ -124,6 +125,7 @@ const RegisterPage = () => {
 							placeholder="Enter your First Name"
 							errors={ errors.firstName }
 							touched={ touched.firstName }
+							value={ values.firstName }
 						/>
 						<TextField
 							label="Last Name"
@@ -132,6 +134,7 @@ const RegisterPage = () => {
 							placeholder="Enter your Last Name"
 							errors={ errors.lastName }
 							touched={ touched.lastName }
+							value={ values.lastName }
 						/>
 						<TextField
 							label="Email"
@@ -140,6 +143,7 @@ const RegisterPage = () => {
 							placeholder="Enter your Email"
 							errors={ errors.email }
 							touched={ touched.email }
+							value={ values.email }
 						/>
 						<TextField
 							label="Phone"
@@ -148,6 +152,7 @@ const RegisterPage = () => {
 							placeholder="Enter your Phone"
 							errors={ errors.phone }
 							touched={ touched.phone }
+							value={ values.phone }
 						/>
 						<TextField
 							label="Birthday"
@@ -156,6 +161,7 @@ const RegisterPage = () => {
 							placeholder="(MM/DD/YYYY)"
 							errors={ errors.birthDay }
 							touched={ touched.birthDay }
+							value={ values.birthDay }
 						/>
 						<TextField
 							label="Password"
@@ -164,6 +170,7 @@ const RegisterPage = () => {
 							placeholder="Enter your Password"
 							errors={ errors.password }
 							touched={ touched.password }
+							value={ values.password }
 						/>
 						<TextField
 							label="Confirm Password"
@@ -172,6 +179,7 @@ const RegisterPage = () => {
 							placeholder="Confirm your Password"
 							errors={ errors.confirmPassword }
 							touched={ touched.confirmPassword }
+							value={ values.confirmPassword }
 						/>
 						{ isLoading ? (
 							<p>Loading...</p>

@@ -76,7 +76,7 @@ export const AuthProvider:FC<Props> = ({ children }) => {
         email: string,
         password: string,
         billingAddress?: IBillingAddress,
-        shippingAddress?: IShippingAddress
+        shippingAddress?: IShippingAddress,
     ): Promise<{ hasError: boolean; message?: string }> => {
         try {
             const { data } = await endApi.post( 'users/register', {

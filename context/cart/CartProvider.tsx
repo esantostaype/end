@@ -5,6 +5,7 @@ import { ICartProduct, IOrder, IBillingAddress, IShippingAddress } from '../../i
 import { enqueueSnackbar } from 'notistack';
 import { endApi } from '../../api';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 interface Props {
     children?: React.ReactNode
@@ -137,8 +138,8 @@ export const CartProvider:FC<Props> = ({ children }) => {
         }
         
         try {
-            const { data } = await endApi.post( '/orders', body );
-            
+            const { data } = await endApi.post<IOrder>( '/orders', body );
+            dispatch({ type: '[Cart] - Order Complete' });
             return {
                 hasErrorOrder: false,
                 messageOrder: data._id!

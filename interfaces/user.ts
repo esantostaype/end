@@ -8,7 +8,7 @@ export interface IUser {
     email: string;
     password: string;
     role: string;
-    billinggAddress?: IBillingAddress;
+    billingAddress?: IBillingAddress;
     shippingAddress?: IShippingAddress;
     createdAt?: string;
     updatedAt?: string;

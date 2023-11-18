@@ -53,7 +53,7 @@ const LoginPage = () => {
 						
 						setShowError( false );
 
-						await signIn( 'credentials', { email, password } );
+						await signIn( 'credentials', { email, password, redirect: false } );
 						
 						const isValidLogin = await loginUser( email, password );
 
@@ -69,7 +69,7 @@ const LoginPage = () => {
 					}
 				}
 			>
-				{({ errors, touched }) => (
+				{({ errors, touched, values }) => (
 					<Form className="form">
 						{
 							showError &&
@@ -85,6 +85,7 @@ const LoginPage = () => {
 							placeholder="Enter your Email"
 							errors={ errors.email }
 							touched={ touched.email }
+							value={ values.email }
 						/>
 						<TextField
 							label="Password"
@@ -93,6 +94,7 @@ const LoginPage = () => {
 							placeholder="Enter your Password"
 							errors={ errors.password }
 							touched={ touched.password }
+							value={ values.password }
 						/>
 						<div className='form__item'>
 							<button className='main-button' type='submit'>Login</button>

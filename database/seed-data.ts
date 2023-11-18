@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import { IBillingAddress, IShippingAddress } from '../interfaces';
 
 interface SeedProduct {
     description: string;
@@ -18,9 +19,12 @@ interface SeedUser {
     firstName: string,
     lastName: string,
     birthDay: string,
+    phone: string,
     email: string,
     password: string,
-    role: 'admin' | 'client'
+    role: 'admin' | 'client',
+    billingAddress: IBillingAddress,
+    shippingAddress: IShippingAddress
 }
 
 type ValidSizes = 'XS'|'S'|'M'|'L'|'XL'|'XXL'|'XXXL';
@@ -38,20 +42,50 @@ export const initialData: SeedData = {
             name: 'esantostaype',
             firstName: 'Erick',
             lastName: 'Santos Taype',
+            phone: '951763504',
             birthDay: '10/10/1986',
             email: 'esantostaype@gmail.com',
             password: bcrypt.hashSync('123456'),
-            role: 'admin'
+            role: 'admin',
+            billingAddress: {
+                country: "uk",
+                address: "San Juan De Miraflores, Sjm",
+                address2: "Sjm",
+                city: "Lima",
+                zipCode: "LIMA 18",
+            },
+            shippingAddress: {
+                country: "uk",
+                address: "San Juan De Miraflores, Sjm",
+                address2: "Sjm",
+                city: "Lima",
+                zipCode: "LIMA 18",
+            }
         },
         {
-            name: 'cvasquez',
+            name: 'kone',
             firstName: 'Carlos',
-            lastName: 'Vásquez Escobedo',
+            lastName: 'Vasquez Escobedo',
+            phone: '933686197',
+            birthDay: '23/08/1986',
             email: 'kone@gmail.com',
-            birthDay: '10/12/1982',
             password: bcrypt.hashSync('123456'),
-            role: 'client'
-        }
+            role: 'client',
+            billingAddress: {
+                country: "uk",
+                address: "San Juan De Miraflores, Sjm",
+                address2: "Sjm",
+                city: "Lima",
+                zipCode: "LIMA 18",
+            },
+            shippingAddress: {
+                country: "uk",
+                address: "San Juan De Miraflores, Sjm",
+                address2: "Sjm",
+                city: "Lima",
+                zipCode: "LIMA 18",
+            }
+        },
     ],
     products: [
         {

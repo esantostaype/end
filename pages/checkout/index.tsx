@@ -28,14 +28,14 @@ interface FormData {
     billingAddress: {
         country: string;
         address: string;
-        address2: string;
+        address2?: string;
         city: string;
         zipCode: string;
     };
     shippingAddress: {
         country: string;
         address: string;
-        address2: string;
+        address2?: string;
         city: string;
         zipCode: string;
     }

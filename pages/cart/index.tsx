@@ -14,24 +14,24 @@ export const CartPage = () => {
             { cart.length > 0 ? (
                 <>
                 <h1>Cart</h1>
-                <div className="cart-page">
-                    <div className="cart-page__products-list">
+                <div className="checkout-page">
+                    <div className="checkout-page__main-content">
                         <CartList editable={ true }/>
                     </div>
-                    <div className='cart-page__summary'>
-                        <h3 className='cart-page__title'>Cart totals</h3>
+                    <div className='checkout-page__sidebar'>
+                        <h3 className='checkout-page__sidebar__title'>Cart totals</h3>
                         <OrderSummary/>
                         <NextLink href="/checkout" className='main-button'>Procced to Checkout</NextLink>
                     </div>
                 </div>
                 </>
                 ) : (
-                    <div className='cart-page__empty'>
-                        <div className="cart-page__empty__content">
-                            <div className='cart-page__empty__icon'>
+                    <div className='checkout-page__empty'>
+                        <div className="checkout-page__empty__content">
+                            <div className='checkout-page__empty__icon'>
                                 <BagIcon height={ 128 } width={ 128 } fill="var(--lightgray2)" />
                             </div>
-                            <h3 className='cart-page__empty__title'>You have no items in your cart</h3>
+                            <h3 className='checkout-page__empty__title'>You have no items in your cart</h3>
                             <NextLink href="/men" className='link'>View Latest</NextLink>
                         </div>
                     </div>

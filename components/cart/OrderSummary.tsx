@@ -1,9 +1,14 @@
-import { useContext } from "react"
+import { FC, useContext } from "react"
 import { CartContext } from "../../context/cart"
 import { currency } from "../../utils";
+import { IOrder } from "../../interfaces";
 import styles from './OrderSummary.module.css';
 
-export const OrderSummary = () => {
+interface Props {
+    order?: IOrder;
+}
+
+export const OrderSummary: FC<Props> = ({ order }) => {
 
     const { numberOfItems, subTotal, tax, total } = useContext( CartContext );
 
@@ -15,15 +20,15 @@ export const OrderSummary = () => {
             </div> */}
             <div className={ styles.row }>
                 <div className={ styles.col }><strong>Subtotal</strong></div>
-                <div className={ styles.col }>{ currency.format( subTotal ) }</div>
+                <div className={ styles.col }>{ order ? currency.format( order.subTotal ) : currency.format( subTotal ) }</div>
             </div>
             <div className={ styles.row }>
                 <div className={ styles.col }><strong>Taxes ({ Number( process.env.NEXT_PUBLIC_TAX_RATE ) * 100}%)</strong></div>
-                <div className={ styles.col }>{ currency.format( tax ) }</div>
+                <div className={ styles.col }>{ order ? currency.format( order.tax ) : currency.format( tax ) }</div>
             </div>
             <div className={ `${ styles.row } ${ styles.total }` }>
                 <div className={ styles.col }>Total</div>
-                <div className={ styles.col }>{ currency.format( total ) }</div>
+                <div className={ styles.col }>{ order ? currency.format( order.total ) : currency.format( total ) }</div>
             </div>
         </div>
     )

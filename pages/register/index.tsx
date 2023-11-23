@@ -24,20 +24,13 @@ const SignupSchema = Yup.object().shape({
     name: Yup.string().min( 2, 'Must be at least 2 characters' ).required( 'Field required' ),
     firstName: Yup.string().min( 2, 'Must be at least 2 characters' ).required( 'Field required' ),
     lastName: Yup.string().min( 2, 'Must be at least 2 characters' ).required( 'Field required' ),
-    birthDay: Yup.string().matches(/^\d{2}\/\d{2}\/\d{4}$/, 'Invalid date format').required('Field required'),
+    // birthDay: Yup.string().matches(/^\d{2}\/\d{2}\/\d{4}$/, 'Invalid date format').required('Field required'),
     email: Yup.string().email( 'Invalid email' ).required( 'Field required' ),
     password: Yup.string().min( 6, 'Must be at least 6 characters' ).required( 'Field required' ),
 	confirmPassword: Yup.string()
     .oneOf([Yup.ref('password')], 'Passwords must match')
     .required('Field required'),
 });
-
-const countryOptions = [
-    { value: '', label: '' },
-    { value: 'usa', label: 'United States of America' },
-    { value: 'canada', label: 'Canada' },
-    { value: 'uk', label: 'United Kingdom' },
-];
 
 const RegisterPage = () => {
 
@@ -81,8 +74,6 @@ const RegisterPage = () => {
 							email,
 							password
 						);
-
-						console.log(values);
 
 						setIsLoading(false);
 

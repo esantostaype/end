@@ -23,6 +23,20 @@ interface ContextProps {
         shippingAddress?: IShippingAddress
     ) => Promise<{ hasError: boolean; message?: string }>;
 
+    updateUser: (
+        name: string,
+        firstName: string,
+        lastName: string,
+        birthDay: string,
+        phone: string,
+        email: string
+    ) => Promise<{ hasError: boolean; message?: string }>;
+
+    updateAddresses: (
+        billinggAddress?: IBillingAddress,
+        shippingAddress?: IShippingAddress
+    ) => Promise<{ hasError: boolean; message?: string }>;
+
     logout: () => void;
     
 }

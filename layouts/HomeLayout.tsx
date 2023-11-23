@@ -29,7 +29,7 @@ export const HomeLayout:FC<Props> = ({ children, title, pageDescription, imageFu
             }
         </Head>
         <Header/>
-        <main className={ `main ${ size }` }>
+        <main className={ `main ${ size } fadeIn` }>
             { children }
         </main>
         <Footer/>

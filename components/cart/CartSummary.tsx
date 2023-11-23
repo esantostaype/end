@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { CartContext } from "../../context/cart"
 import styles from './OrderSummary.module.css';
+import { currency } from "../../utils";
 
 export const CartSummary = () => {
 
@@ -16,7 +17,7 @@ export const CartSummary = () => {
                 cart.map( ( product ) => (                    
                     <div className={ styles.row } key={ product.slug + product.size }>
                         <div className={ styles.col }>{ product.title } <span className={ styles.quantity }>x { product.quantity }</span></div>
-                        <div className={ styles.col }>{ product.price * product.quantity }</div>
+                        <div className={ styles.col }>{ currency.format( product.price * product.quantity ) }</div>
                     </div>
 
                 ) )

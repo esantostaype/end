@@ -41,20 +41,24 @@ const createOrder = async ( req: NextApiRequest, res: NextApiResponse<Data> ) =>
             return ( currentPrice * current.quantity ) + prev
         }, 0 );
         const taxRate =  Number(process.env.NEXT_PUBLIC_TAX_RATE || 0);
-        const backendTotal = subTotal * ( taxRate + 1 );
+        const tax = subTotal * taxRate
+        const backendTotal = Math.round(( subTotal + tax ) * 100 ) / 100;
 
         if( total !== backendTotal ) {
             throw new Error( 'El total no cuadra con el monto' );
         }
+        
+        const orderId = await generateOrderId();
 
         if ( session ) {
             const user = session.user._id;
-            const newOrder = new Order({ ...req.body, isPaid: false, user });
+            const newOrder = new Order({ ...req.body, orderId, isPaid: false, user });
+            newOrder.total = Math.round( newOrder.total * 100 ) / 100;
             await newOrder.save();    
             await db.disconnect();    
             return res.status(201).json( newOrder );
         } else {
-            const newOrder = new Order({ ...req.body, isPaid: false });
+            const newOrder = new Order({ ...req.body, orderId, isPaid: false });
             await newOrder.save();
             await db.disconnect();
             return res.status(201).json( newOrder );
@@ -69,3 +73,24 @@ const createOrder = async ( req: NextApiRequest, res: NextApiResponse<Data> ) =>
     }
     
 }
+
+const generateOrderId = async () => {
+    const currentYear = new Date().getFullYear();
+
+    const lastOrder = await Order.findOne({ orderId: new RegExp(`^${currentYear}-`, 'i') })
+        .sort({ orderId: -1 })
+        .limit(1);
+
+    let lastOrderNumber = 0;
+
+    if (lastOrder && lastOrder.orderId) {
+        const lastOrderIdParts = lastOrder.orderId.split('-');
+        lastOrderNumber = parseInt(lastOrderIdParts[1], 10);
+    }
+
+    const nextOrderNumber = lastOrderNumber + 1;
+
+    const paddingZeros = '000000';
+    const orderId = `${currentYear}-${(paddingZeros + nextOrderNumber).slice(-6)}`;
+    return orderId;
+};

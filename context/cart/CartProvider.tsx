@@ -5,7 +5,6 @@ import { ICartProduct, IOrder, IBillingAddress, IShippingAddress } from '../../i
 import { enqueueSnackbar } from 'notistack';
 import { endApi } from '../../api';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 interface Props {
     children?: React.ReactNode
@@ -18,6 +17,11 @@ export interface CartState {
     subTotal: number;
     tax: number;
     total: number;
+}
+
+export interface IPayOrder {
+    transactionId: string;
+    orderId: string;
 }
 
 const CART_INITIAL_STATE: CartState = {
@@ -58,12 +62,13 @@ export const CartProvider:FC<Props> = ({ children }) => {
         const numberOfItems = state.cart.reduce( ( prev, current ) => current.quantity + prev , 0 );
         const subTotal = state.cart.reduce( ( prev, current ) => (current.price * current.quantity) + prev, 0 );
         const taxRate =  Number(process.env.NEXT_PUBLIC_TAX_RATE || 0);
+        const tax = subTotal * taxRate
 
         const orderSummary = {
             numberOfItems,
             subTotal,
             tax: subTotal * taxRate,
-            total: subTotal * ( taxRate + 1 )
+            total: Math.round(( subTotal + tax ) * 100 ) / 100
         }
 
         dispatch({ type: '[Cart] - Update Order Summary', payload: orderSummary });
@@ -92,6 +97,15 @@ export const CartProvider:FC<Props> = ({ children }) => {
         });
 
         dispatch({ type: '[Cart] - Update Products in Cart', payload: updatedProducts });
+
+        enqueueSnackbar( `${ product.title } | Size ${ product.size } was added to cart`, {
+            variant: 'success',
+            autoHideDuration: 3000,
+            anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'left'
+            }
+        } );
     }
 
     const updatedCartQuantity = ( product: ICartProduct ) => {
@@ -159,6 +173,37 @@ export const CartProvider:FC<Props> = ({ children }) => {
 
     }
 
+    const payOrder = async (
+        transactionId: string,
+        orderId: string,
+    ):Promise<{ hasErrorPay: boolean; messagePay: string; }> => {
+
+        const body: IPayOrder = {
+            transactionId,
+            orderId
+        }
+        
+        try {
+            const { data } = await endApi.post<IOrder>( '/orders/pay', body );
+            return {
+                hasErrorPay: false,
+                messagePay: data._id!
+            }
+        } catch ( error ) {
+            if ( axios.isAxiosError( error ) ){
+                return {
+                    hasErrorPay: true,
+                    messagePay: error.response?.data.messagePay
+                }
+            }
+            return {
+                hasErrorPay: true,
+                messagePay: 'Error no controlado, hable con el Administrador.'
+            }
+        }
+
+    }
+
     return (
         <CartContext.Provider value={{
             ...state,
@@ -166,7 +211,8 @@ export const CartProvider:FC<Props> = ({ children }) => {
             addProductToCart,
             updatedCartQuantity,
             removeCartProduct,
-            createOrder
+            createOrder,
+            payOrder
         }}>
             { children }
         </CartContext.Provider>

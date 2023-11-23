@@ -29,7 +29,7 @@ export const ShopLayout:FC<Props> = ({ children, title, pageDescription, imageFu
             }
         </Head>
         <Header/>
-        <main className={ `main ${ size }` }>
+        <main className={ `main ${ size } fadeIn` }>
             <section className='main__content'>
                 { children }
             </section>

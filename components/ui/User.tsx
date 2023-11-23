@@ -9,7 +9,7 @@ export const User = () => {
 
     const router = useRouter();
     
-    const { user, isLoggedIn, logout } = useContext( AuthContext )
+    const { user, isLoggedIn, logout } = useContext( AuthContext );
 
     const [ isPopoverOpen, setIsPopoverOpen ] = useState( false );
     const popoverRef = useRef( null );
@@ -77,13 +77,13 @@ export const User = () => {
                             isLoggedIn ?
                             (   <>
                                 <li className={ styles.popoverItem }>
-                                    <NextLink href='/profile'>
+                                    <NextLink href='/my-account'>
                                         <UserIcon height={ 16 } width={ 16 } />
                                         <span>Profile</span>
                                     </NextLink>
                                 </li>
                                 <li className={ styles.popoverItem }>
-                                    <NextLink href='/orders'>
+                                    <NextLink href='/my-account/orders'>
                                         <BagIcon height={ 16 } width={ 16 } />
                                         <span>My Orders</span>
                                     </NextLink>

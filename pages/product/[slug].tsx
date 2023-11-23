@@ -59,14 +59,6 @@ const ProductPage:NextPage<Props> = ({ product }) => {
                 size: undefined,
                 quantity: 1,
             }));
-            enqueueSnackbar( `${ product.title } | Size ${ tempCartProduct.size } was added to cart`, {
-                variant: 'success',
-                autoHideDuration: 3000,
-                anchorOrigin: {
-                    vertical: 'bottom',
-                    horizontal: 'left'
-                }
-            } );
 
         }
     }

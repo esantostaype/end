@@ -22,6 +22,11 @@ interface ContextProps {
         billinggAddress?: IBillingAddress,
         shippingAddress?: IShippingAddress
     ) => Promise<{ hasErrorOrder: boolean; messageOrder: string; }>;
+
+    payOrder: (
+        transactionId: string,
+        orderId: string,
+    ) => Promise<{ hasErrorPay: boolean; messagePay: string; }>;
 }
 
 export const CartContext = createContext( {} as ContextProps );

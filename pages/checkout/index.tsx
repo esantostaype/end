@@ -1,17 +1,39 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { AuthContext, CartContext } from '../../context';
 import { ShopLayout } from "../../layouts"
-import { CartList, OrderSummary, TextField, Notification, CartSummary } from '../../components';
-import { Field, Form, Formik, FormikHelpers } from "formik";
+import { OrderSummary, TextField, Notification, CartSummary, Spinner } from '../../components';
+import { Form, Formik, FormikHelpers } from "formik";
 import * as Yup from 'yup';
-import { getSession, signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { GetServerSideProps, NextPage } from 'next';
-import { IUser } from '../../interfaces';
-import { dbUsers } from '../../database';
+import { IOrder, IUser } from '../../interfaces';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]';
 import { getUserById } from '../../database/dbUsers';
+import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { endApi } from '../../api';
+import { dbOrders } from '../../database';
+
+export type OrderResponseBody = {
+    id: string;
+    status:
+        | "COMPLETED"
+        | "SAVED"
+        | "APPROVED"
+        | "VOIDED"
+        | "PAYER_ACTION_REQUIRED";
+};
+
+interface PayPalDetails {
+    id: string;
+    status:
+        | "COMPLETED"
+        | "SAVED"
+        | "APPROVED"
+        | "VOIDED"
+        | "PAYER_ACTION_REQUIRED";
+}
 
 interface Props {
     user: IUser;
@@ -42,6 +64,18 @@ interface FormData {
 }
 
 const SignupSchema = Yup.object().shape({
+    // name: Yup.string().min( 2, 'Must be at least 2 characters' ).required( 'Field required' ),
+    firstName: Yup.string().min( 2, 'Must be at least 2 characters' ).required( 'Field required' ),
+    lastName: Yup.string().min( 2, 'Must be at least 2 characters' ).required( 'Field required' ),
+    email: Yup.string().email( 'Invalid email' ).required( 'Field required' ),
+    // password: Yup.string().min( 6, 'Must be at least 6 characters' ).required( 'Field required' ),
+    phone: Yup.string().min( 9, 'Must be 9 digits' ).max( 9, 'Must be 9 digits' ).required( 'Field required' ),
+    billingAddress: Yup.object().shape({
+        country: Yup.string().required('Field required'),
+        address: Yup.string().required('Field required'),
+        city: Yup.string().required('Field required'),
+        zipCode: Yup.string().required('Field required'),
+    })
 });
 
 const countryOptions = [
@@ -63,9 +97,12 @@ const CheckoutPage: NextPage<Props> = ({ user }) => {
     const [ createAccount, setCreateAccount ] = useState( false );
     const [ shipDifferentAddress, setShippingEqualBilling ] = useState( false );
 
-	const { createOrder } = useContext( CartContext );
+	const { createOrder, cart, total } = useContext( CartContext );
 
     const [ isPosting, setIsPosting] =useState( false );
+    const [ isPaying, setIsPaying] = useState( false );
+
+    const detailsRef = useRef<PayPalDetails | null>(null);
     
     return (
         <ShopLayout title={ 'Checkout | END.'} pageDescription={ 'Encuentra los mejores productos aquí'} size="large">
@@ -96,7 +133,7 @@ const CheckoutPage: NextPage<Props> = ({ user }) => {
                 }}
                 validationSchema={ SignupSchema }
                 onSubmit = {
-                    async( values: FormData, { setSubmitting }: FormikHelpers<FormData> ) => {
+                    async( values: FormData, { setSubmitting, submitForm }: FormikHelpers<FormData> ) => {
 
                         const {
                             name,
@@ -171,7 +208,7 @@ const CheckoutPage: NextPage<Props> = ({ user }) => {
                         
                             setIsPosting( true );
 
-                            router.replace( `/orders/${ messageOrder }` );
+                            router.replace( `/my-account/orders/${ messageOrder }` );
                         } else {
             
                             if ( shipDifferentAddress ) {
@@ -213,17 +250,40 @@ const CheckoutPage: NextPage<Props> = ({ user }) => {
                                 return;
                             }
 
-                            router.replace( `/orders/${ messageOrder }` );
+                            const details = detailsRef.current;
+                            
+                            if ( details ) {
+                                if ( details.status !== 'COMPLETED' ) {
+                                    return alert('No hay pago en Paypal');
+                                }
+                        
+                                setIsPaying( true );
+                        
+                                try {
+                                    
+                                    const { data } = await endApi.post(`/orders/pay`, {
+                                        transactionId: details.id,
+                                        orderId: messageOrder
+                                    });
+                        
+                                    router.replace(`/my-account/orders/${ messageOrder }`);
+                        
+                                } catch (error) {
+                                    setIsPaying(false);
+                                    console.log(error);
+                                    alert('Error');
+                                }
+                            }
                             
                             setSubmitting(false);
                         }
                     }
                 }
             >
-                {({ errors, touched, values }) => (
+                {({ errors, touched, values, submitForm }) => (
                     <Form className="form">
                         <div className="checkout-page">
-                            <div className="checkout-page__info">
+                            <div className="checkout-page__main-content">
                                 {
                                     showError &&
                                     <Notification
@@ -231,8 +291,8 @@ const CheckoutPage: NextPage<Props> = ({ user }) => {
                                         type="error"
                                     />
                                 }
-                                <div className="checkout-page__info__section">
-                                    <div className='checkout-page__info__header'>
+                                <div className="checkout-page__main-content__section">
+                                    <div className='checkout-page__main-content__header'>
                                         <h3 className="checkout-page__title">Billing Details</h3>
                                     </div>
                                     <div className='form__content'>
@@ -379,8 +439,8 @@ const CheckoutPage: NextPage<Props> = ({ user }) => {
                                         }
                                     </div>
                                 </div>
-                                <div className="checkout-page__info__section">
-                                    <div className='checkout-page__info__header'>
+                                <div className="checkout-page__main-content__section">
+                                    <div className='checkout-page__main-content__header'>
                                         <h3 className="checkout-page__title">Shipping Details</h3>
                                     </div>
                                     <div className='form__content'>
@@ -457,11 +517,36 @@ const CheckoutPage: NextPage<Props> = ({ user }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='checkout-page__summary'>
-                                <h3 className='checkout-page__title'>Summary</h3>
+                            <div className='checkout-page__sidebar'>
+                                <h3 className='checkout-page__sidebar__title'>Summary</h3>
                                 <CartSummary/>
                                 <OrderSummary/>
-                                <button className='main-button' type='submit' disabled={ isPosting }>Place Order</button>
+                                {/* <button className='main-button' type='submit' disabled={ isPosting }>Place Order</button> */}
+                                {
+                                    isPaying
+                                    ? <Spinner/>
+                                    : <PayPalButtons
+                                        createOrder={( data, actions ) => {
+                                            return actions.order.create({
+                                                purchase_units: [
+                                                    {
+                                                        amount: {
+                                                            value: `${ total }`
+                                                        }
+                                                    }
+                                                ]
+                                            });
+                                        }}
+                                        onApprove={( data, actions ) => {
+                                            return actions.order!.capture().then( async( details ) => {
+                                                detailsRef.current = details as OrderResponseBody;
+                                                await submitForm();
+                                            } )
+                                        }}
+                                    />
+                                }
+                                
+                                
                             </div>
                         </div>
                     </Form>
@@ -471,25 +556,27 @@ const CheckoutPage: NextPage<Props> = ({ user }) => {
     )
 }
 
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res, query }) => {
     
-    const session: any = await getServerSession(req, res, authOptions);
+    const { id = '' } = query;
+    const session: any = await getServerSession( req, res, authOptions );
 
     if ( session ) {
-        const user = await getUserById(session.user._id);
+        const user = await getUserById( session.user._id );
 
         if ( user ) {
             return {
                 props: {
                     user
-                },
+                }
             };
         }
     }
 
+
     return {
-        props: {}
+        props: {
+        }
     }
 }
 

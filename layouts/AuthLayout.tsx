@@ -15,7 +15,7 @@ export const AuthLayout:FC<Props> = ({ children, title, pageDescription }) => {
             <title>{ title }</title>
             <meta name="description" content={ pageDescription } />
         </Head>
-        <main className='auth'>
+        <main className='auth fadeIn'>
             <div className='auth__image'>
                 <Image
                     src={ "/images/hero/hero-01.jpg" }

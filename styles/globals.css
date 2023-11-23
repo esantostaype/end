@@ -168,7 +168,7 @@ h1{
     font-size: 2em;
     letter-spacing: 0.025em;
     line-height: 1em;
-    margin: 0 0 1em;
+    margin: 0 0 1.5em;
     text-transform: uppercase;
 }
 
@@ -200,6 +200,30 @@ a {
 span {
     font-weight: inherit;
 }
+
+table{
+    border: 0;
+    margin: 0;
+    border-spacing: 0;
+    empty-cells: show;
+    word-wrap: break-word;
+    min-width: 100%;
+    text-align: left;
+}
+
+table th{
+    text-transform: uppercase;
+}
+
+table td, table th{
+    border-bottom: 1px solid var(--lightgray2);
+    padding: 16px 0;
+}
+
+.table__actions{
+    text-align: right;
+}
+
 
 input,
 textarea,
@@ -267,6 +291,12 @@ button{
     text-align: center;
     transition: all 0.3s ease;
     width: 100%;
+}
+
+.ghost-button.small{
+    display: inline-block;
+    padding: 0.6em 1.2em;
+    width: auto;
 }
 
 .ghost-button:hover{
@@ -569,30 +599,32 @@ p {
 
 
 
-.cart-page,
 .checkout-page{
     display: flex;
     gap: 60px;
 }
 
-.cart-page__products-list,
-.checkout-page__info{
+.checkout-page__main-content{
     flex: 4;
 }
 
-.cart-page__summary,
-.checkout-page__summary{
+.checkout-page__sidebar{
     flex: 2;
 }
 
-.cart-page__title,
-.checkout-page__title{
+.checkout-page__title,
+.checkout-page__sidebar__title{
     font-size: 1.5em;
     font-weight: bold;
-    margin-bottom: 30px;
+    margin: 40px 0 20px;
 }
 
-.cart-page__empty{
+.checkout-page__title:first-child,
+.checkout-page__sidebar__title:first-child{
+    margin-top: 0;
+}
+
+.checkout-page__empty{
     align-items: center;
     display: flex;
     justify-content: center;
@@ -600,29 +632,25 @@ p {
     text-align: center;
 }
 
-.cart-page__empty__content{
+.checkout-page__empty__content{
     margin-top: -80px;
 }
 
-.cart-page__empty__title{
+.checkout-page__empty__title{
     font-size: 1.5em;
     line-height: 1.3em;
     margin: 20px 0;
 }
 
-.checkout-page__cart-list{
-    margin-top: 40px;
-}
-
-.checkout-page__info__section{
+.checkout-page__main-content__section{
     margin-bottom: 40px;
 }
 
-.checkout-page__info__section:last-child{
+.checkout-page__main-content__section:last-child{
     margin-bottom: 0;
 }
 
-.checkout-page__info__header{
+.checkout-page__main-content__header{
     display: flex;
     justify-content: space-between;
 }
@@ -759,6 +787,39 @@ p {
     transform: rotate(45deg);
 }
 
+
+
+
+.my-account{
+    display: flex;
+}
+
+.my-account__nav{
+    flex: 1;
+}
+
+.my-account__nav__list{
+    font-size: 1.125em;
+}
+
+.my-account__nav__item{
+    margin-bottom: 1em;
+}
+
+.my-account__nav__item a,
+.my-account__nav__item button{
+    align-items: center;
+    display: flex;
+    font-weight: bold;
+}
+
+.my-account__nav__item span{
+    margin-left: 8px;
+}
+
+.my-account__content{
+    flex: 4;
+}
 
 
 

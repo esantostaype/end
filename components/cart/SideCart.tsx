@@ -41,7 +41,7 @@ export const SideCart = () => {
                 { cart.length > 0 ? (
                     <>
                         <div className={ styles.list }>
-                            <CartList editable={ true } />
+                            <CartList editable={ true } sideCart={ true } />
                         </div>
                         <div className={ styles.summary }>
                             <OrderSummary />

@@ -838,3 +838,45 @@ p {
 	animation-fill-mode: both;
 	animation-name: fadeIn;
 }
+
+
+
+
+
+
+
+.admin{
+    background-color: var(--lightgray);
+    margin-left: 240px;
+    min-height: 100vh;
+    padding: 90px 30px 30px;
+}
+
+.admin__content{
+    background: #fff;
+    border: 1px solid var(--lightgray2);
+    border-radius: 12px;
+    box-shadow: 0 3px 6px rgb(50 60 72 / 6%);
+    padding: 30px;
+}
+
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px
+}
+
+.card{
+    background: #fff;
+    border: 1px solid var(--lightgray2);
+    border-radius: 12px;
+    box-shadow: 0 3px 6px rgb(50 60 72 / 6%);
+    flex: 0 0 calc( 25% - 22.5px );
+    padding: 30px;
+}
+
+.dashboard-summary__count{
+    font-size: 4em;
+    font-weight: bold;
+    line-height: 1em;
+}

@@ -25,16 +25,6 @@ export type OrderResponseBody = {
         | "PAYER_ACTION_REQUIRED";
 };
 
-interface PayPalDetails {
-    id: string;
-    status:
-        | "COMPLETED"
-        | "SAVED"
-        | "APPROVED"
-        | "VOIDED"
-        | "PAYER_ACTION_REQUIRED";
-}
-
 interface Props {
     user: IUser;
 }
@@ -102,7 +92,7 @@ const CheckoutPage: NextPage<Props> = ({ user }) => {
     const [ isPosting, setIsPosting] =useState( false );
     const [ isPaying, setIsPaying] = useState( false );
 
-    const detailsRef = useRef<PayPalDetails | null>(null);
+    const detailsRef = useRef<OrderResponseBody | null>(null);
     
     return (
         <ShopLayout title={ 'Checkout | END.'} pageDescription={ 'Encuentra los mejores productos aquí'} size="large">
@@ -343,8 +333,6 @@ const CheckoutPage: NextPage<Props> = ({ user }) => {
                                         <div className='form__field ff-12'>
                                             <TextField
                                                 as="select"
-                                                label="Country"
-                                                type="country"
                                                 name="billingAddress.country"
                                                 options={ countryOptions }
                                                 errors={ errors.billingAddress?.country }

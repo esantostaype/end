@@ -1,22 +1,23 @@
-import { useState, FC } from 'react';
+import { useState, FC, ChangeEvent } from 'react';
 import { ErrorMessage, Field } from 'formik';
 import styles from './TextField.module.css';
 
-interface CountryOption {
+interface Select {
     value: string;
     label: string;
 }
 
 interface Props {
-    label: string;
-    type: string;
+    label?: string;
+    type?: string;
     name: string;
     placeholder?: string;
     as?: string;
-    options?: CountryOption[];
-    errors: string | undefined;
-    touched: boolean | undefined;
+    options?: Select[];
+    errors?: string | undefined;
+    touched?: boolean | undefined;
     value?: string;
+    onChange?: ( e: ChangeEvent<any> ) => void;
 }
 
 export const TextField:FC<Props> = ({
@@ -28,7 +29,8 @@ export const TextField:FC<Props> = ({
     options,
     errors,
     touched,
-    value
+    value,
+    onChange
 }) => {
 
     const [ isActive, setIsActive ] = useState( false );
@@ -61,7 +63,7 @@ export const TextField:FC<Props> = ({
         >
             <label htmlFor={ name } className={ styles.label }>{ label }</label>
             { as ? (
-                <Field as="select" type={ type } name={ name } className={ styles.field } autoComplete="off">
+                <Field as="select" name={ name } className={ styles.field } autoComplete="off" onChange={ onChange } >
                     { options && options.map(( option ) => (
                         <option key={ option.value } value={ option.value }>
                             { option.label }

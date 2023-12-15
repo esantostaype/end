@@ -13,7 +13,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../context';
 
 interface Props {
-    user: IUser[]
+    user: IUser
 }
 
 interface FormData {
@@ -67,8 +67,20 @@ const AddressesPage: NextPage<Props> = ({ user }) => {
             
             <Formik
                 initialValues={{
-                    billingAddress: user?.billingAddress,
-                    shippingAddress: user?.shippingAddress
+                    billingAddress: user?.billingAddress || {
+                        country: '',
+                        address: '',
+                        address2: '',
+                        city: '',
+                        zipCode: ''
+                    },
+                    shippingAddress: user?.shippingAddress || {
+                        country: '',
+                        address: '',
+                        address2: '',
+                        city: '',
+                        zipCode: ''
+                    }
                 }}
                 validationSchema={ SignupSchema }
                 onSubmit = {

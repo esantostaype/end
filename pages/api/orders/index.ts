@@ -40,9 +40,9 @@ const createOrder = async ( req: NextApiRequest, res: NextApiResponse<Data> ) =>
             }
             return ( currentPrice * current.quantity ) + prev
         }, 0 );
-        const taxRate =  Number(process.env.NEXT_PUBLIC_TAX_RATE || 0);
-        const tax = subTotal * taxRate
-        const backendTotal = Math.round(( subTotal + tax ) * 100 ) / 100;
+        const tax =  subTotal * Number(process.env.NEXT_PUBLIC_TAX_RATE || 0);
+        const total = subTotal + tax
+        const backendTotal = Math.round(( total ) * 100 ) / 100;
 
         if( total !== backendTotal ) {
             throw new Error( 'El total no cuadra con el monto' );

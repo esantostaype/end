@@ -11,12 +11,9 @@ const userSchema = new Schema({
     password: { type: String, required: true },
     role: {
         type: String,
-        enum: {
-            values: [ 'admin', 'client' ],
-            message: '{VALUE} is not a valid role',
-            default: 'client',
-            required: true
-        }
+        enum: ['admin', 'super-admin', 'editor', 'client'],
+        default: 'client',
+        required: true
     },
     billingAddress: {
         type: {

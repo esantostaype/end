@@ -1,12 +1,11 @@
+import NextLink from 'next/link';
 import { GetServerSideProps, NextPage } from 'next';
+import { IOrder } from '../../../interfaces'
+import { AdminLayout } from '../../../layouts'
+import { currency } from '../../../utils';
+import useSWR from 'swr';
 import { dbOrders } from '../../../database';
-import { IOrder } from "../../../interfaces";
-import { MyAccountLayout } from '../../../layouts';
-import { getSession } from 'next-auth/react';
 import { CartList, OrderSummary } from '../../../components';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { endApi } from '../../../api';
 
 interface Props {
     order: IOrder;
@@ -14,9 +13,9 @@ interface Props {
 
 const OrderDetail: NextPage<Props> = ({ order }) => {
 
-    return (
-        <MyAccountLayout title={ `Order N° ${ order.orderId } | END.`} pageDescription={ `Order N° ${ order.orderId } Details`} size="large">
-            <h1>Order N°: { order.orderId }</h1>
+	return (
+		<AdminLayout  title={ `Order N° ${ order.orderId } | END.`}>
+			<h1>Order N°: { order.orderId }</h1>
             <div className="checkout-page">
                 <div className="checkout-page__main-content">
                     <CartList products={ order.orderItems } />
@@ -53,39 +52,20 @@ const OrderDetail: NextPage<Props> = ({ order }) => {
                     </div>
                 </div>
             </div>
-        </MyAccountLayout>
-    )
+		</AdminLayout>
+	)
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
     
     const { id = '' } = query;
-    const session:any = await getSession({ req });
-
-    if ( !session ) {
-        return {
-            redirect: {
-                destination: `/login?p=/my-account/orders/${ id }`,
-                permanent: false,
-            }
-        }
-    }
 
     const order = await dbOrders.getOrderById( id.toString() );
 
     if ( !order ) {
         return {
             redirect: {
-                destination: '/my-account/orders',
-                permanent: false,
-            }
-        }
-    }
-
-    if ( order.user !== session.user._id ) {
-        return {
-            redirect: {
-                destination: '/my-account/orders',
+                destination: '/admin/orders',
                 permanent: false,
             }
         }
@@ -98,6 +78,5 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
         }
     }
 }
-
 
 export default OrderDetail;
